@@ -1,0 +1,43 @@
+{
+  "name": "nexus-strapi-upload",
+  "version": "0.0.1",
+  "description": "lib of upload files to blob storage private",
+  "main": "lib/main.js",
+  "types": "lib/types.d.ts",
+  "source": "src/main.ts",
+  "author": "Bruno Marques <blmarques.dev@gmail.com>",
+  "license": "MIT",
+  "homepage": "http://strapi.io",
+  "keywords": [
+    "upload",
+    "strapi",
+    "azure",
+    "blob"
+  ],
+  "scripts": {
+    "clean": "rm -rf lib",
+    "preBuild": "npm run clean && npm run biome:apply",
+    "build": "npm run preBuild && tsc -p tsconfig.json",
+    "biome:apply": "biome check --apply ./src/*",
+    "format": "biome format ./src/* --write",
+    "lint": "biome lint ./src/*",
+    "prepublishOnly": "npm run build"
+  },
+  "directories": {
+    "lib": "./lib"
+  },
+  "files": [
+    "lib/**/*"
+  ],
+  "strapi": {
+    "isProvider": true
+  },
+  "dependencies": {
+    "@azure/storage-blob": "^12.17.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.4.1",
+    "@types/node": "^20.10.7",
+    "typescript": "^5.3.3"
+  }
+}
