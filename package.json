@@ -22,9 +22,6 @@
   "bugs": {
     "url": "https://github.com/blmarquess/azure-storage-provider-strapi/issues"
   },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
-  },
   "keywords": [
     "upload",
     "strapi",
