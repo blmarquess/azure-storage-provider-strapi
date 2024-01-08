@@ -1,5 +1,3 @@
-# strapi-azure-upload
+# Azure Storage Provider for Strapi
 
-## Description
-
-This is a simple script to upload files to a Nexus repository using the Strapi API.
+This is a Strapi provider for Azure Storage. It allows you to use Azure Storage as a provider for your Strapi uploads and media.

@@ -1,13 +1,30 @@
 {
-  "name": "nexus-strapi-upload",
+  "name": "azure-storage-provider-strapi",
   "version": "0.0.1",
   "description": "lib of upload files to blob storage private",
   "main": "lib/main.js",
-  "types": "lib/types.d.ts",
   "source": "src/main.ts",
+  "types": "lib/types.d.ts",
+  "typesVersions": {
+    "*": {
+      "lib/*": [
+        "lib/*"
+      ]
+    }
+  },
   "author": "Bruno Marques <blmarques.dev@gmail.com>",
   "license": "MIT",
-  "homepage": "http://strapi.io",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blmarquess/azure-storage-provider-strapi.git"
+  },
+  "homepage": "https://github.com/blmarquess/azure-storage-provider-strapi#readme",
+  "bugs": {
+    "url": "https://github.com/blmarquess/azure-storage-provider-strapi/issues"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "keywords": [
     "upload",
     "strapi",
