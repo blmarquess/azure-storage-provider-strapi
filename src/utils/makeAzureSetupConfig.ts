@@ -1,30 +1,56 @@
+import { z } from 'zod';
 import type { AzureBlobConfig, StrapiConfigInput } from '../types';
 import { trimParam } from './trimParam';
 
-const BUFFER_SIZE = 4 * 1024 * 1024; // 4MB
-const MAX_BUFFERS = 20;
+const DEFAULT_BUFFER_SIZE = 4 * 1024 * 1024; // 4MB
+const DEFAULT_MAX_CONCURRENCY = 20; //
+const DEFAULT_EXPIRATION_TIME = 1; // 1 hour
+
+const AzureBlobConfigSchema = z.object({
+	containerName: z.string().min(1),
+	account: z.string().min(1),
+	accountKey: z.string().min(1),
+	createContainerIfNotExists: z.boolean(),
+	defaultPath: z.string(),
+	cdnBaseURL: z.string().optional(),
+	serviceBaseURL: z.string().optional(),
+	uploadOptions: z
+		.object({
+			bufferSize: z.number().optional(),
+			maxConcurrency: z.number().optional()
+		})
+		.optional(),
+	blobLinkExpirationTime: z.number().min(1).optional()
+});
+
+function validateInputs(inputs: StrapiConfigInput) {
+	const validate = AzureBlobConfigSchema.safeParse(inputs);
+	if (validate.success) {
+		return validate.data;
+	}
+	throw validate.error;
+}
 
 export function makeAzureSetupConfig(strapiInputConfig: StrapiConfigInput): AzureBlobConfig {
+	const validatedInputs = validateInputs(strapiInputConfig);
 	return {
-		...strapiInputConfig,
-		containerName: trimParam(strapiInputConfig.containerName),
-		account: trimParam(strapiInputConfig.account),
-		accountKey: trimParam(strapiInputConfig.accountKey),
-		createContainerIfNotExists:
-			strapiInputConfig.createContainerIfNotExists === undefined
-				? true
-				: strapiInputConfig.createContainerIfNotExists,
-		defaultPath: trimParam(strapiInputConfig.defaultPath),
+		...validatedInputs,
+		containerName: trimParam(validatedInputs.containerName),
+		account: trimParam(validatedInputs.account),
+		accountKey: trimParam(validatedInputs.accountKey),
+		createContainerIfNotExists: Boolean(validatedInputs.createContainerIfNotExists),
+		defaultPath: trimParam(validatedInputs.defaultPath),
 		cdnBaseURL:
-			trimParam(strapiInputConfig.cdnBaseURL) ||
-			`https://${trimParam(strapiInputConfig.account)}.blob.core.windows.net`,
+			trimParam(validatedInputs.cdnBaseURL) ||
+			`https://${trimParam(validatedInputs.account)}.blob.core.windows.net`,
 		serviceBaseURL:
-			trimParam(strapiInputConfig.serviceBaseURL) ||
-			`https://${trimParam(strapiInputConfig.account)}.blob.core.windows.net`,
+			trimParam(validatedInputs.serviceBaseURL) ||
+			`https://${trimParam(validatedInputs.account)}.blob.core.windows.net`,
 		uploadOptions: {
-			bufferSize: strapiInputConfig.uploadOptions?.bufferSize || BUFFER_SIZE,
-			maxConcurrency: strapiInputConfig.uploadOptions?.maxConcurrency || MAX_BUFFERS
+			bufferSize: validatedInputs.uploadOptions?.bufferSize || DEFAULT_BUFFER_SIZE,
+			maxConcurrency: validatedInputs.uploadOptions?.maxConcurrency || DEFAULT_MAX_CONCURRENCY
 		},
-		blobLinkExpirationTime: 3
+		blobLinkExpirationTime:
+			Number(validatedInputs.blobLinkExpirationTime) || DEFAULT_EXPIRATION_TIME
 	};
 }
