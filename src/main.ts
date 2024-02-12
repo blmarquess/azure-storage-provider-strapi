@@ -6,7 +6,7 @@ import {
 	makeBlobServiceClient
 } from './helpers';
 import type { AzureBlobConfig, StrapiFile } from './types';
-import { makeAzureSetupConfig } from './utils/makeAzureSetupConfig';
+import { makeAzureSetupConfig } from './utils';
 
 module.exports = {
 	provider: 'azure',

@@ -7,7 +7,7 @@ export type AzureBlobConfig = {
 	containerName: string;
 	defaultPath: string;
 	cdnBaseURL: string;
-	createContainerIfNotExists: true;
+	createContainerIfNotExists: boolean;
 	blobLinkExpirationTime: number;
 	uploadOptions: {
 		bufferSize: number;
