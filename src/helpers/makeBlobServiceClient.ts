@@ -10,7 +10,7 @@ export function makeBlobServiceClient(config: AzureBlobConfig) {
 		containerClient
 			.createIfNotExists()
 			.then((response) =>
-				console.log(
+				console.error(
 					`container ${config.containerName} ${
 						response.succeeded ? 'created successfully' : 'already existed'
 					}`
