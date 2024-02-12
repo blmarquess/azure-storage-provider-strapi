@@ -4,11 +4,11 @@
   "description": "lib of upload files to blob storage private",
   "main": "lib/main.js",
   "source": "src/main.ts",
-  "types": "lib/types.d.ts",
+  "types": "lib/types/*.d.ts",
   "typesVersions": {
     "*": {
       "lib/*": [
-        "lib/*"
+        "lib/types*"
       ]
     }
   },
@@ -18,6 +18,9 @@
     "type": "git",
     "url": "git+https://github.com/blmarquess/azure-storage-provider-strapi.git"
   },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "homepage": "https://github.com/blmarquess/azure-storage-provider-strapi#readme",
   "bugs": {
     "url": "https://github.com/blmarquess/azure-storage-provider-strapi/issues"
@@ -25,17 +28,20 @@
   "keywords": [
     "upload",
     "strapi",
+    "azure-storage",
     "azure",
     "blob"
   ],
   "scripts": {
     "clean": "rm -rf lib",
     "preBuild": "npm run clean && npm run biome:apply",
-    "build": "npm run preBuild && tsc -p tsconfig.json",
+    "build": "npm run preBuild && tsc -p tsconfig.build.json",
     "biome:apply": "biome check --apply ./src/*",
     "format": "biome format ./src/* --write",
     "lint": "biome lint ./src/*",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "test": "node --test --require ts-node/register ./src/**/*.spec.ts",
+    "test:watch": "node --test --watch --require ts-node/register ./src/**/*.spec.ts"
   },
   "directories": {
     "lib": "./lib"
@@ -47,11 +53,16 @@
     "isProvider": true
   },
   "dependencies": {
-    "@azure/storage-blob": "^12.17.0"
+    "@azure/storage-blob": "^12.17.0",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@biomejs/biome": "1.4.1",
     "@types/node": "^20.10.7",
+    "ts-node-dev": "^2.0.0",
     "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }
