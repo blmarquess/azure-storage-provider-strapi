@@ -1,6 +1,6 @@
 {
   "name": "azure-storage-provider-strapi",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "lib of upload files to blob storage private",
   "main": "lib/main.js",
   "source": "src/main.ts",
