@@ -40,10 +40,11 @@ module.exports = ({ env }) => ({
         accountKey: env("STORAGE_ACCOUNT_KEY"),
         sasToken: env("STORAGE_ACCOUNT_SAS_TOKEN"),
         serviceBaseURL: env("STORAGE_URL"),
+        cdnBaseURL: env("STORAGE_CDN_URL"),
         containerName: env("STORAGE_CONTAINER_NAME", "myPrivateContainer"),
-        defaultPath: "assets",
-        createContainerIfNotExists: false,
-        blobLinkExpirationTime: env("STORAGE_SIGNED_URL_EXPIRES_TIME", 24), // time of expiration sign urls in hours
+        defaultPath: env("STORAGE_DEFAULT_PATH","assets"),
+        createContainerIfNotExists: ('STORAGE_CREATE_CONTAINER_NOT_EXISTES' ,false),
+        blobLinkExpirationTime: env("STORAGE_SIGNED_URL_EXPIRES_TIME", 24),
         uploadOptions: {
           bufferSize: env("STORAGE_BUFFER_SIZE"),
           maxConcurrency: env("STORAGE_MAX_CONCURRENCY", 10),
@@ -92,3 +93,19 @@ export default [
 // ...
 ];
 ```
+
+## Environments
+  
+  ```bash
+  STORAGE_ACCOUNT=your_storage_account <"without .blob.core.windows.net">
+  STORAGE_ACCOUNT_KEY=your_storage_account_key
+  STORAGE_ACCOUNT_SAS_TOKEN=your_storage_account_sas_token
+  STORAGE_URL=your_storage_url <"without .blob.core.windows.net">
+  STORAGE_CDN_URL=your_cdn_url <"optional">
+  STORAGE_CONTAINER_NAME=your_container_name
+  STORAGE_DEFAULT_PATH=your_default_path <"default assets">
+  STORAGE_SIGNED_URL_EXPIRES_TIME=your_signed_url_expires_time  <"default 1">
+  STORAGE_BUFFER_SIZE=your_buffer_size <"default (4*1024*1024)4mb">
+  STORAGE_MAX_CONCURRENCY=your_max_concurrency <"default 20">
+  STORAGE_CREATE_CONTAINER_NOT_EXISTES=boolean_if_create_container_not_exists <"default false">
+  ```
