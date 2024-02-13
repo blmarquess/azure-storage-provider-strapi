@@ -1,6 +1,5 @@
-[![.github/workflows/publish.yml](https://github.com/blmarquess/azure-storage-provider-strapi/actions/workflows/publish.yml/badge.svg)](https://github.com/blmarquess/azure-storage-provider-strapi/actions/workflows/publish.yml)
-
-[![Application Tests](https://github.com/blmarquess/azure-storage-provider-strapi/actions/workflows/tests.yml/badge.svg)](https://github.com/blmarquess/azure-storage-provider-strapi/actions/workflows/tests.yml)
+[![Publish to NPM](https://github.com/blmarquess/azure-storage-provider-strapi/actions/workflows/publish.yml/badge.svg?branch=main&event=push)](https://github.com/blmarquess/azure-storage-provider-strapi/actions/workflows/publish.yml)
+[![Application Tests](https://github.com/blmarquess/azure-storage-provider-strapi/actions/workflows/tests.yml/badge.svg?branch=main&event=push)](https://github.com/blmarquess/azure-storage-provider-strapi/actions/workflows/tests.yml)
 
 # Azure Storage Provider for Strapi
 
