@@ -19,7 +19,8 @@
     "url": "git+https://github.com/blmarquess/azure-storage-provider-strapi.git"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
+    "registry": "https://registry.npmjs.org",
+    "tag": "latest"
   },
   "homepage": "https://github.com/blmarquess/azure-storage-provider-strapi#readme",
   "bugs": {
